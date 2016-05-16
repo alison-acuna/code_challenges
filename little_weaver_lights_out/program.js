@@ -73,26 +73,47 @@ function victory () {
   setUp();
 }
 
+
+$('.square.off').click(function() {
+  if ($(this).hasClass('right')){
+    $(this).toggleClass('on');
+    $(this).prev().toggleClass('on');
+    $(this).nextAll().eq(4).toggleClass('on');
+    $(this).prevAll().eq(4).toggleClass('on');
+    $(this).toggleClass('off');
+  } else if ($(this).hasClass('left')) {
+    $(this).toggleClass('on');
+    $(this).next().toggleClass('on');
+    $(this).nextAll().eq(4).toggleClass('on');
+    $(this).prevAll().eq(4).toggleClass('on');
+    $(this).toggleClass('off');
+  } else if (!$(this).hasClass('.left, .right')) {
+    $(this).toggleClass('on');
+    $(this).prev().toggleClass('on');
+    $(this).next().toggleClass('on');
+    $(this).nextAll().eq(4).toggleClass('on');
+    $(this).prevAll().eq(4).toggleClass('on');
+    $(this).toggleClass('off');
+    }
+  if ($('.square.off').length == $('.square').length) {
+    victory();
+  }
+});
+
 function setUp() {
   // This should set up the board with a random arrangement
   // of on and off lights. Note that not all Lights Out
   // boards are solvable. An easy way to generate solvable
   // boards is by simulating random clicks.
-
+   function setBoard (){
+     var squares = $('.square.off');
+     var randomNum = Math.floor(Math.random()*squares.length)
+     squares.get(randomNum).click();
+   }
+   setBoard()
+   setBoard()
+   setBoard()
 }
-
-// Write the code to handle clicking on the lights here.
-// Code to toggle 5 squares on and off
-// Next Steps: remove wrap element
- $('.square.off').click(function() {
-    console.log("log click")
-     $(this).toggleClass('on');
-     $(this).prev().toggleClass('on');
-     $(this).next().toggleClass('on');
-     $(this).nextAll().eq(4).toggleClass('on');
-     $(this).prevAll().eq(4).toggleClass('on');
-     $(this).toggleClass('off');
- });
 
 // Start the game:
 setUp();
